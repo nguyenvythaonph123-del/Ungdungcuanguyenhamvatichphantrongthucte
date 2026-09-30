@@ -1,0 +1,1095 @@
+
+\documentclass[12pt,a4paper]{article}
+
+% !TEX TS-program = pdflatex
+\usepackage[utf8]{inputenc}
+\usepackage[T5]{fontenc}
+\usepackage[vietnamese]{babel}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathptmx}
+\usepackage{geometry}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{xcolor}
+\usepackage[most]{tcolorbox}
+\usepackage{hyperref}
+\usepackage{changepage}
+
+% Căn lề và khoảng cách
+\geometry{top=1.65cm,bottom=1.7cm,left=1.8cm,right=1.8cm}
+\setlength{\parindent}{0pt}
+\linespread{1.27}
+\setlength{\parskip}{0pt}
+\setlength{\abovedisplayskip}{2pt}
+\setlength{\belowdisplayskip}{2pt}
+\setlength{\abovedisplayshortskip}{2pt}
+\setlength{\belowdisplayshortskip}{2pt}
+
+\setlist[itemize]{label=\textbullet,leftmargin=0.72cm,itemsep=2pt,topsep=2pt}
+\setlist[itemize,2]{label=$\circ$,leftmargin=0.65cm,itemsep=1pt,topsep=1pt}
+\setlist[enumerate]{leftmargin=0.65cm,itemsep=2pt,topsep=2pt}
+
+\setlength{\headheight}{14pt}
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0pt}
+\rfoot{\small Trang \thepage/20}
+
+\titleformat{\section}{\large\bfseries}{\thesection.}{0.5em}{}
+\titleformat{\subsection}{\normalsize\bfseries}{\thesubsection.}{0.5em}{}
+\titleformat{\subsubsection}{\normalsize\bfseries}{\thesubsubsection.}{0.5em}{}
+\titlespacing*{\section}{0pt}{8pt}{4pt}
+\titlespacing*{\subsection}{0pt}{5pt}{2pt}
+\titlespacing*{\subsubsection}{0pt}{4pt}{2pt}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\dd}{\,\mathrm{d}}
+\newcommand{\ds}{\displaystyle}
+
+% Khung công thức
+\newcommand{\smallbox}{\raisebox{0.15ex}{\rule{1.5pt}{1.5pt}}}
+\newcommand{\fitem}[1]{\noindent\smallbox\hspace{4pt}{\fontsize{9.5pt}{11.5pt}\selectfont$\displaystyle #1$}\par\vspace{2pt}}
+\newenvironment{formulaBox}
+{\par\begin{center}
+ \setlength{\tabcolsep}{7pt}%
+ \renewcommand{\arraystretch}{1.0}%
+ \begin{tabular}{|p{0.494\linewidth}|p{0.494\linewidth}|}\hline}
+{\\\hline\end{tabular}\end{center}\par}
+% Khung tiêu đề phần
+\newtcolorbox{partbox}{
+  enhanced, colback=black, colframe=black, boxrule=0pt,
+  arc=3pt, left=8pt,right=8pt,top=5pt,bottom=5pt,
+  halign=center, width=.86\linewidth, center,
+  before skip=8pt, after skip=8pt,
+  fontupper=\bfseries\color{white}
+}
+\newtcolorbox{dangbox}{
+  enhanced, colback=gray!20, colframe=black, boxrule=0.8pt,
+  arc=4pt, left=8pt,right=8pt,top=4pt,bottom=4pt,
+  halign=center, width=.72\linewidth, center,
+  before skip=7pt, after skip=7pt,
+  fontupper=\bfseries
+}
+% Khung phân tích
+\newtcolorbox{analysisbox}{
+  enhanced,
+  breakable,
+  colback=yellow!25,
+  colframe=yellow!25,
+  boxrule=0pt,
+  left=6pt,right=6pt,top=5pt,bottom=5pt,
+  width=1.0\linewidth, center,
+  before skip=5pt,after skip=7pt
+}
+\newcommand{\analysis}{\noindent\raisebox{0.15ex}{\rule{1.6ex}{1.6ex}}\hspace{4pt}\textbf{Phân tích bài toán}\par}
+\newcommand{\solution}{\begin{center}\textbf{\textit{Hướng dẫn giải}}\end{center}\par}
+\newtcolorbox{commentbox}{
+  enhanced, breakable, colback=gray!16, colframe=black, boxrule=0pt,
+  borderline={0.8pt}{0pt}{black,dashed},
+  left=7pt,right=7pt,top=4pt,bottom=5pt,
+  width=1.0\linewidth, center,
+  before skip=5pt,after skip=7pt,
+  fontupper=\itshape
+}
+\newcommand{\commenthead}{\textbf{Bình luận:} Qua bài toán này ta cần lưu ý:\par}
+
+\begin{document}
+
+% Trang bìa
+\begin{titlepage}
+\thispagestyle{empty}
+
+\begin{tikzpicture}[remember picture,overlay]
+    \draw[line width=1.5pt]
+        ([xshift=1.5cm,yshift=-1.5cm]current page.north west)
+        rectangle
+        ([xshift=-1.5cm,yshift=1.5cm]current page.south east);
+    \draw[line width=0.6pt]
+        ([xshift=1.7cm,yshift=-1.7cm]current page.north west)
+        rectangle
+        ([xshift=-1.7cm,yshift=1.7cm]current page.south east);
+\end{tikzpicture}
+
+\begin{center}
+{\fontsize{16pt}{20pt}\selectfont\bfseries TRƯỜNG ĐẠI HỌC SƯ PHẠM}\\[4pt]
+{\fontsize{16pt}{20pt}\selectfont\bfseries ĐẠI HỌC HUẾ}\\[4pt]
+{\fontsize{16pt}{20pt}\selectfont\bfseries KHOA TOÁN}\\[0.5cm]
+
+\includegraphics[width=4.5cm]{logo trường.jpg}\\[0.5cm]
+
+{\fontsize{17pt}{21pt}\selectfont\bfseries DỰ ÁN:}\\[8pt]
+{\fontsize{22pt}{28pt}\selectfont\bfseries ỨNG DỤNG CỦA NGUYÊN HÀM -- TÍCH PHÂN}\\[6pt]
+{\fontsize{22pt}{28pt}\selectfont\bfseries TRONG THỰC TẾ}\\[0.6cm]
+
+{\fontsize{15pt}{19pt}\selectfont\bfseries HỌC PHẦN:}\\[4pt]
+{\fontsize{15pt}{19pt}\selectfont Tích hợp công nghệ thông tin trong dạy học toán}\\[0.8cm]
+
+\begin{adjustwidth}{1.8cm}{1cm}
+\setlength{\tabcolsep}{6pt}
+\renewcommand{\arraystretch}{1.3}
+{\fontsize{15pt}{20pt}\selectfont
+\begin{tabular}{l l}
+\textbf{Sinh viên thực hiện:} & Nguyễn Vy Thảo \\
+\textbf{Mã sinh viên:} & 22S1010094 \\
+\textbf{Lớp:} & 231011A \\
+\textbf{Giáo viên hướng dẫn:} & Nguyễn Đặng Minh Phúc \\
+\end{tabular}}
+\end{adjustwidth}
+
+\vfill
+\vfill
+
+{\fontsize{15pt}{19pt}\selectfont\bfseries HUẾ -- 09/2026}\\[0.3cm]
+\end{center}
+\end{titlepage}
+
+\setcounter{page}{2}
+
+\begin{center}
+{\Large\bfseries ỨNG DỤNG CỦA NGUYÊN HÀM -- TÍCH PHÂN}\\[4pt]
+{\Large\bfseries TRONG THỰC TẾ}
+\end{center}
+
+\textit{Với xu thế đổi mới cách đánh giá năng lực học sinh thì những bài toán ứng dụng thực tế
+của tích phân đang là chủ đề nóng và rất cần thiết cho những học sinh đang chuẩn bị
+cho kì thi THPT Quốc gia. Trong chương này, chúng ta sẽ làm quen với những bài toán
+thực tế áp dụng phép tính tích phân theo định hướng ra đề của Bộ Giáo dục và Đào tạo.}
+
+Nội dung chương này bao gồm:
+\begin{itemize}
+\item Phần A: Tóm tắt lý thuyết và các kiến thức liên quan.
+\item Phần B: Các bài toán ứng dụng thực tế.
+\end{itemize}
+
+\begin{partbox}PHẦN A: TÓM TẮT LÝ THUYẾT\end{partbox}
+
+\section*{I. Nguyên hàm}
+
+\subsection*{1. Khái niệm nguyên hàm}
+
+\begin{itemize}
+\item Cho hàm số $f(x)$ xác định trên $K$. Hàm số $F(x)$ được gọi là nguyên hàm của
+$f(x)$ trên $K$ nếu
+\[
+F'(x)=f(x),\qquad \forall x\in K.
+\]
+\item Nếu $F(x)$ là một nguyên hàm của $f(x)$ trên $K$ thì họ tất cả các nguyên hàm của
+$f(x)$ trên $K$ là
+\[
+\int f(x)\dd x=F(x)+C,\qquad C\in\R.
+\]
+\item Mọi hàm số $f(x)$ liên tục trên $K$ đều có nguyên hàm trên $K$.
+\end{itemize}
+
+\subsection*{2. Tính chất}
+Cho các hằng số $C,k\in\R$.
+
+{\setlength{\parskip}{1pt}
+\noindent\(\displaystyle \int f'(x)\dd x=f(x)+C.\)\par
+\noindent\(\displaystyle \int\bigl(f(x)\pm g(x)\bigr)\dd x=\int f(x)\dd x\pm\int g(x)\dd x.\)\par
+\noindent\(\displaystyle \int k\cdot f(x)\dd x=k\int f(x)\dd x,\quad (k\ne0).\)\par}
+
+\subsection*{3. Nguyên hàm của một số hàm thường gặp}
+
+\begin{itemize}[itemsep=1pt]
+    \item \textbf{Cho $a,b,c,\alpha,\beta\in\mathbb{R}$ là hằng số}
+\end{itemize}
+
+\vspace{-2pt}
+
+% Bảng nguyên hàm thường gặp - phần 1
+\begin{center}
+\small
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.35}
+
+\begin{tabular}{|p{0.40\linewidth}|p{0.55\linewidth}|}
+\hline
+
+$\ds\bullet\ \int 0\dd x=c$
+&
+$\ds\bullet\ \int (ax+b)^\alpha\dd x
+=\frac{1}{a}\cdot\frac{(ax+b)^{\alpha+1}}{\alpha+1}+c
+\quad(\alpha\ne-1,\ a\ne0)$
+\\
+
+$\ds\bullet\ \int\dd x=x+c$
+&
+$\ds\bullet\ \int\frac{1}{ax+b}\dd x
+=\frac{1}{a}\ln|ax+b|+c
+\quad(a\ne0)$
+\\
+
+$\ds\bullet\ \int x^\alpha\dd x
+=\frac{x^{\alpha+1}}{\alpha+1}+c
+\quad(\alpha=\text{const},\alpha\ne-1)$
+&
+$\ds\bullet\ \int\cos(ax+b)\dd x
+=\frac{1}{a}\sin(ax+b)+c
+\quad(a\ne0)$
+\\
+
+$\ds\bullet\ \int\frac{\dd x}{x^2}
+=-\frac{1}{x}+c$
+&
+$\ds\bullet\ \int\sin(ax+b)\dd x
+=-\frac{1}{a}\cos(ax+b)+c
+\quad(a\ne0)$
+\\
+
+$\ds\bullet\ \int\frac{\dd x}{\sqrt{x}}
+=2\sqrt{x}+c$
+&
+$\ds\bullet\ \int\frac{1}{\cos^2(ax+b)}\dd x
+=\frac{1}{a}\tan(ax+b)+c
+\quad(a\ne0)$
+\\
+
+$\ds\bullet\ \int\cos x\dd x
+=\sin x+c$
+&
+\\
+
+\hline
+\end{tabular}
+\end{center}
+
+\newpage
+
+% Bảng nguyên hàm thường gặp - phần 2
+\begin{center}
+\small
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.35}
+
+\begin{tabular}{|p{0.40\linewidth}|p{0.55\linewidth}|}
+\hline
+
+$\ds\bullet\ \int\sin x\dd x
+=-\cos x+c$
+&
+$\ds\bullet\ \int\frac{1}{\sin^2(ax+b)}\dd x
+=-\frac{1}{a}\cot(ax+b)+c
+\quad(a\ne0)$
+\\
+
+$\ds\bullet\ \int\frac{1}{\cos^2x}\dd x
+=\tan x+c$
+&
+$\ds\bullet\ \int a^{\alpha x+\beta}\dd x
+=\frac{a^{\alpha x+\beta}}{\alpha\ln a}+c
+\quad(0<a\ne1,\ \alpha\ne0)$
+\\
+
+$\ds\bullet\ \int\frac{1}{\sin^2x}\dd x
+=-\cot x+c$
+&
+$\ds\bullet\ \int e^{ax+b}\dd x
+=\frac{1}{a}e^{ax+b}+c
+\quad(a\ne0)$
+\\
+
+$\ds\bullet\ \int a^x\dd x
+=\frac{a^x}{\ln a}+c
+\quad(0<a\ne1)$
+&
+\\
+
+$\ds\bullet\ \int e^x\dd x
+=e^x+c$
+&
+\\
+
+$\ds\bullet\ \int\frac{1}{x}\dd x
+=\ln|x|+c$
+&
+\\
+
+$\ds\bullet\ \int\frac{1}{x\ln a}\dd x
+=\log_a|x|+c
+\quad(0<a\ne1)$
+&
+\\
+
+\hline
+\end{tabular}
+\end{center}
+
+\section*{II. Tích phân}
+
+\subsection*{1. Khái niệm tích phân}
+
+\begin{itemize}
+\item Cho hàm số $f(x)$ liên tục trên $K$ và $a,b\in K$. Nếu $F(x)$ là một nguyên hàm của $f(x)$ trên $K$ thì giá trị $F(b)-F(a)$ gọi là tích phân của hàm $f(x)$ từ $a$ đến $b$, kí hiệu
+\[
+\int_a^b f(x)\dd x=F(b)-F(a).
+\]
+\item Đối với biến số, ta có thể chọn bất kì một chữ khác thay cho $x$, tức là
+\[
+\int_a^b f(x)\dd x=\int_a^b f(t)\dd t=\int_a^b f(u)\dd u=\cdots.
+\]
+\end{itemize}
+
+\subsection*{2. Tính chất của tích phân}
+
+Cho hàm số $f(x)$ liên tục trên $[a;b]$ và $k\in\R$, $c\in(a;b)$.
+
+\begin{flushleft}
+\hspace*{0.45cm}$\displaystyle \int_a^b f(x)\dd x=-\int_b^a f(x)\dd x.$\par
+\vspace{-2pt}
+\hspace*{0.45cm}$\displaystyle \int_a^b f(x)\dd x=\int_a^c f(x)\dd x+\int_c^b f(x)\dd x.$\par
+\vspace{-2pt}
+\hspace*{0.45cm}$\displaystyle \int_a^b k\cdot f(x)\dd x=k\int_a^b f(x)\dd x.$\par
+\vspace{-2pt}
+\hspace*{0.45cm}$\displaystyle \int_a^b\bigl(f(x)\pm g(x)\bigr)\dd x
+=\int_a^b f(x)\dd x\pm\int_a^b g(x)\dd x.$\par
+\end{flushleft}
+
+\section*{III. Ứng dụng tích phân tính diện tích hình phẳng.}
+
+\subsection*{1. Diện tích hình phẳng (H) giới hạn bởi một đường cong (C) và trục hoành}
+
+\[
+(H):\left\{
+\begin{aligned}
+y&=f(x)\quad(C),\\
+y&=0,\\
+x&=a,\quad x=b\quad(a<b).
+\end{aligned}
+\right.
+\]
+
+Diện tích được tính theo công thức
+\[
+\boxed{S=\int_a^b|f(x)|\dd x}.
+\]
+
+\subsection*{2. Diện tích hình phẳng (H) giới hạn bởi 2 đường cong}
+
+\[
+(H):\left\{
+\begin{aligned}
+y&=f(x)\quad(C_1),\\
+y&=g(x)\quad(C_2),\\
+x&=a,\\
+x&=b\quad(a<b).
+\end{aligned}
+\right.
+\]
+
+Diện tích được tính theo công thức
+\[
+\boxed{S=\int_a^b\left|f(x)-g(x)\right|\dd x}.
+\]
+
+\section*{IV. Ứng dụng tích phân tính thể tích khối tròn xoay}
+
+\noindent 1. Cho hàm $y=f(x)$ liên tục trên đoạn $[a;b]$. Gọi $(H)$ là hình thang cong giới hạn bởi các đường sau:
+\[
+(H):\left\{
+\begin{aligned}
+y&=f(x),\\
+y&=0,\\
+x&=a,\quad x=b\quad(a<b).
+\end{aligned}
+\right.
+\]
+Thể tích khối tròn xoay được sinh ra do hình $(H)$ xoay quanh trục $Ox$.
+\[
+\boxed{V=\pi\int_a^b f^2(x)\dd x}.
+\]
+
+\noindent 2. Cho 2 hàm số $y=f(x)$ và $y=g(x)$ cùng liên tục trên đoạn $[a;b]$ và thỏa điều kiện
+$f(x)\ge g(x)\ge0,\ \forall x\in[a;b]$. Gọi $(H)$ là hình phẳng giới hạn bởi các đường sau:
+\[
+(H):\left\{
+\begin{aligned}
+y&=f(x),\\
+y&=g(x),\\
+x&=a,\quad x=b\quad(a<b).
+\end{aligned}
+\right.
+\]
+Thể tích khối tròn xoay được sinh ra do hình phẳng $(H)$ quay quanh trục $Ox$:
+\[
+\boxed{V=\pi\int_a^b\bigl[f^2(x)-g^2(x)\bigr]\dd x}.
+\]
+
+\begin{partbox}PHẦN B: CÁC BÀI TOÁN ỨNG DỤNG THỰC TẾ\end{partbox}
+
+1. Với một đại lượng $f(x)$ biến thiên theo biến số $x$ thì tốc độ thay đổi (vận tốc) của
+$f(x)$ theo biến $x$ chính là đạo hàm $f'(x)$ (với giả sử rằng $f'(x)$ luôn tồn tại). Ngược lại,
+khi biết tốc độ thay đổi $f'(x)$ của một đại lượng $f(x)$ thì có thể suy ra mô hình hàm số
+biểu thị cho đường đi của đại lượng đó bằng cách lấy nguyên hàm của $f'(x)$. Nghĩa là
+\[
+f(x)=\int f'(x)\dd x.
+\]
+Kết hợp thêm các điều kiện ban đầu thích hợp để tìm ra $f(x)$ một cách chính xác.
+
+2. Khi biết tốc độ thay đổi $f'(x)$ của một đại lượng $f(x)$. Sự chênh lệch giá trị của đại
+lượng $f(x)$ trong khoảng giá trị của biến $x$ đi từ $a$ đến $b$ được xác định bởi công thức:
+\[
+f(b)-f(a)=\int_a^b f'(x)\dd x.
+\]
+Đây là mấu chốt quan trọng để giải quyết các bài toán thực tiễn như khi biết tốc độ tăng
+trưởng của một đại lượng, ta có thể tìm một hàm số biểu thị số lượng của đại lượng đó qua
+từng thời kì. Trong thực tế, nhiều bài toán liên quan tới nội dung này có thể kể đến như: sự
+chuyển động của vật, sự gia tăng dân số, sự phát triển của vi khuẩn, các bài toán về sản
+xuất và kinh doanh…
+
+\begin{dangbox}DẠNG 1: BÀI TOÁN VỀ CHUYỂN ĐỘNG\end{dangbox}
+
+\begin{itemize}
+\item Giả sử vật $M$ chuyển động trên quãng đường có độ dài là $s$ trong khoảng thời gian $t$.
+Khi đó, vật $M$ chuyển động với vận tốc trung bình là
+\[
+v=\frac{s}{t}.
+\]
+\item Tuy nhiên, chúng ta gặp rất nhiều trường hợp vật chuyển động không đều, vận tốc thay
+đổi liên tục tùy theo vị trí và thời gian. Ví dụ xe chạy trên đường gặp nhiều chướng
+ngại vật thì giảm tốc, chạy trên đường thông thoáng thì tăng tốc. Vì vậy ta cần phương
+pháp tính đúng vận tốc của xe tại mỗi thời điểm.
+\item Giả sử $v(t)$ là vận tốc của vật $M$ tại thời điểm $t$, và $s(t)$ là quãng đường vật đi được sau
+khoảng thời gian $t$ tính từ lúc bắt đầu chuyển động. Ta có mối liên hệ giữa $s(t)$ và $v(t)$
+\begin{itemize}
+\item Đạo hàm của quãng đường là vận tốc: $s'(t)=v(t)$.
+\item Nguyên hàm của vận tốc là quãng đường: $s(t)=\int v(t)\dd t$.
+\end{itemize}
+\item Từ đây ta cũng có quãng đường vật đi được trong khoảng thời gian $t\in[a;b]$ là:
+\[
+\int_a^b v(t)\dd t=s(b)-s(a).
+\]
+\item Nếu gọi $a(t)$ là gia tốc của vật $M$ thì ta có mối liên hệ giữa $v(t)$ và $a(t)$
+\begin{itemize}
+\item Đạo hàm của vận tốc chính là gia tốc: $v'(t)=a(t)$.
+\item Nguyên hàm của gia tốc chính là vận tốc: $v(t)=\int a(t)\dd t$.
+\end{itemize}
+\end{itemize}
+
+\textbf{Bài toán 1: (Trích đề minh họa 2017 của Bộ GD - ĐT). Một ô tô đang chạy với vận tốc $10m/s$ thì tài xế đạp phanh; từ thời điểm đó, ô tô chuyển động chậm dần đều với vận tốc $v(t)=-5t+10(m/s)$, trong đó $t$ là khoảng thời gian tính bằng giây, kể từ lúc đạp phanh. Hỏi từ lúc đạp phanh đến khi dừng hẳn, ô tô còn di chuyển được bao nhiêu mét?}\par\medskip
+\begin{center}\makebox[0.95\linewidth][s]{\textbf{A.} $0,2m$\hfill\textbf{B.} $2m$\hfill\textbf{C.} $10m$\hfill\textbf{D.} $20m$.}\end{center}
+\begin{analysisbox}
+\analysis
+\begin{itemize}
+\item Ta có nguyên hàm của vận tốc $v(t)=-5t+10$ chính là quãng đường $s(t)$ mà ô tô đi được sau thời gian $t$ giây kể từ lúc tài xế đạp phanh.
+\item Vào thời điểm ô tô bắt đầu đạp phanh ứng với $t=0$.
+\item Vào thời điểm ô tô dừng lại thì $v(t)=0\Leftrightarrow -5t+10=0\Leftrightarrow t=2$.
+\item Từ đây ta tính được quãng đường xe đi được từ lúc $t=0$ đến $t=2$ theo công thức
+$\displaystyle\int_0^2v(t)\dd t$.
+\end{itemize}
+\end{analysisbox}
+
+\solution
+\begin{itemize}
+\item Lúc bắt đầu đạp phanh, tức là tại thời điểm $t_0$, ô tô có vận tốc $v_0=10(m/s)$. Suy ra
+$v(t_0)=-5t_0+10=10\Leftrightarrow t_0=0$.
+\item Khi ô tô dừng lại tại thời điểm $t_1$ thì vận tốc $v_1=0(m/s)$. Suy ra
+$v(t_1)=-5t_1+10=0\Leftrightarrow t_1=2$.
+\item Ta có mối liên hệ giữa 2 đại lượng biến thiên quãng đường đi được $S(t)$ và vận tốc
+$v(t)$ là: Nguyên hàm của vận tốc $v(t)$ chính là quãng đường đi được $S(t)$. Suy ra
+quãng đường đi được từ lúc đạp phanh đến khi dừng lại là tích phân của hàm $v(t)$ khi
+thời gian $t$ từ $0s$ đến $2s$.
+\[
+\int_0^2v(t)\dd t=\int_0^2(-5t+10)\dd t
+=\left.\left(-\frac{5}{2}t^2+10t\right)\right|_0^2=10m.
+\]
+\item Vậy chọn đáp án C.
+\end{itemize}
+
+\begin{commentbox}\commenthead
+Một là, nguyên hàm của vận tốc là quãng đường đi được của vật chuyển động.
+
+Hai là, nếu biết $s(t)$ là nguyên hàm của $v(t)$ thì quãng đường của vật đi được trong khoảng
+thời gian $t\in[a;b]$ được tính theo công thức
+\[
+\int_a^b v(t)\dd t=s(b)-s(a).
+\]
+
+Ba là, bài toán có thể giải theo phong cách Vật lí. “Từ lúc đạp phanh đến khi dừng hẳn, ô
+tô còn di chuyển quãng đường là $S=v_0t+\frac12at^2$ trong đó
+\[
+\begin{cases}a=-5\\t=2\\v_0=10\end{cases}
+\Rightarrow S=10\cdot2+\frac12(-5)\cdot2^2=10m.
+\]
+
+\end{commentbox}\textbf{Bài toán 3: Một máy bay đang chuyển động thẳng đều trên mặt đất với vận tốc $v=3(m/s)$ thì bắt đầu tăng tốc với độ biến thiên vận tốc là hàm số $a(t)$ có đồ thị hàm số là đường thẳng như hình bên. Sau $15s$ tăng tốc thì máy bay đạt đến vận tốc đủ lớn để phóng khỏi mặt đất. Hãy tính vận tốc khi máy bay bắt đầu rời khỏi mặt đất.}\par\medskip
+\begin{analysisbox}
+\analysis
+\begin{itemize}
+\item Máy bay bắt đầu tăng tốc với độ biến thiên vận tốc là hàm số $a(t)$, và đề bài chưa cho
+công thức $a(t)$, nên bước đầu ta cần tìm công thức $a(t)$.
+\item Vì đồ thị hàm số $a(t)$ là đường thẳng nên có dạng $a(t)=mt+n$, đường thẳng này đi
+qua gốc tọa độ $O(0;0)$ và điểm $A(16;90)$ từ đó suy ra phương trình $a(t)$.
+\item Nhớ rằng: Nguyên hàm của gia tốc $a(t)$ chính là vận tốc $v(t)$ của vật chuyển động
+nên ta có
+$\displaystyle v(t)=\int a(t)\dd t$.
+\item Chú ý điều kiện vận tốc của máy bay lúc bắt đầu tăng tốc là $v(0)=3(m/s)$, từ đây ta
+suy ra được hàm số $v(t)$.
+\item Để tính vận tốc của máy bay lúc rời khỏi mặt đất ta chỉ cần tính $v(15)$.
+\end{itemize}
+\end{analysisbox}
+
+\solution
+\begin{itemize}
+\item Đường thẳng $a(t)=mt+n$ đi qua gốc tọa độ $O(0;0)$ và điểm $A(16;90)$ nên
+\[
+\begin{cases}m\cdot0+n=0\\m\cdot15+n=90\end{cases}
+\Longrightarrow n=0,\ m=6,
+\]
+suy ra $a(t)=6t$.
+\item Ta hiểu rằng: Nguyên hàm của gia tốc $a(t)$ chính là vận tốc của vật chuyển động. Do
+đó ta có công thức vận tốc $v(t)$ được tính theo công thức
+\[
+v(t)=\int a(t)\dd t=\int6t\dd t=3t^2+C.
+\]
+\item Tại thời điểm bắt đầu tăng tốc thì xem như $t=0$ và vận tốc lúc đó là $v=3(m/s)$.
+Suy ra $v(0)=3\Leftrightarrow3\cdot0^2+C=3\Leftrightarrow C=3$, do đó
+$v(t)=3t^2+3$.
+\item Vậy vận tốc máy bay đạt được khi bắt đầu phóng khỏi mặt đất là
+\[
+v(15)=3\cdot15^2+3=678(m/s).
+\]
+\end{itemize}
+
+\begin{commentbox}\commenthead
+Một là, cho đồ thị của một hàm số, từ đó suy ra phương trình của hàm số đó.
+
+Hai là, nguyên hàm của gia tốc chính là vận tốc của vật chuyển động.
+
+\end{commentbox}\textbf{Bài toán 4: Một viên đạn được bắn lên trời với vận tốc là $72m/s$ bắt đầu từ độ cao $2m$. Hãy xác định chiều cao của viên đạn sau thời gian $5s$ kể từ lúc bắn.}\par\medskip
+\begin{analysisbox}
+\analysis
+\begin{itemize}
+\item Để xác định được chiều cao của viên đạn tại thời điểm bất kì, ta cần tìm công thức quãng đường $s(t)$ mà viên đạn đi được.
+\item Xem như tại thời điểm $t_0=0$ thì viên đạn được bắn lên. Theo giả thiết ta có $s(0)=2$
+và $v(0)=72$.
+\item Ta biết rằng trong chuyển động ném đứng từ dưới lên thì gia tốc trọng trường có giá trị
+âm tại mọi thời điểm $t$, nghĩa là $a(t)=-9,8m/s^2$.
+\item Vận tốc $v(t)$ là nguyên hàm của $a(t)$ nên ta có $v(t)=\int-9,8\dd t$, kết hợp điều kiện vận
+tốc ban đầu là $v(0)=72$ ta suy ra dạng của $v(t)$.
+\item Tiếp tục có $s(t)$ là nguyên hàm của $v(t)$, kết hợp điều kiện vị trí ban đầu $s(0)=2$ ta tìm
+được phương trình của $s(t)$. Từ đây ta tính được $s(5)$.
+\end{itemize}
+\end{analysisbox}
+
+\solution
+\begin{itemize}
+\item Ta có vận tốc của viên đạn tại thời điểm $t$ là
+\[
+v(t)=\int-9,8\dd t=-9,8t+C_1.
+\]
+Do $v(0)=72$ nên $C_1=72$, suy ra $v(t)=-9,8t+72$.
+\item Độ cao của viên đạn tại thời điểm $t$ là
+\[
+s(t)=\int v(t)\dd t=\int(-9,8t+72)\dd t=-4,9t^2+72t+C_2.
+\]
+Vì $s(0)=2$ nên $C_2=2$, suy ra $s(t)=-4,9t^2+72t+2$.
+\item Vậy sau khoảng thời gian $5s$ kể từ lúc bắn, viên đạn ở độ cao
+\[
+s(5)=-4,9\cdot5^2+72\cdot5+2=239,5m.
+\]
+\end{itemize}
+
+\begin{commentbox}\commenthead
+Qua bài toán này ta ta có bài toán tổng quát hơn cho chuyển động ném đứng từ dưới lên của vật. Giả sử vật A được ném thẳng đứng lên với vận tốc ban đầu $v_0$ ở vị trí độ cao $s_0$ so với mặt đất. Ta sẽ thiết lập các hàm vận tốc và hàm độ cao của vật A như sau:
+\end{commentbox}
+
+\begin{itemize}
+\item Xem như tại thời điểm $t_0=0$ thì vật được ném hướng lên. Theo giả thiết ta có $s(0)=s_0$
+và $s'(0)=v_0$.
+\item Ta biết rằng trong chuyển động ném đứng từ dưới lên thì gia tốc trọng trường có giá trị âm tại mọi thời điểm $t$, nghĩa là $s''(t)=-9,8m/s^2$.
+\item Ta có vận tốc của viên đạn tại thời điểm $t$ là
+\[
+s'(t)=\int-9,8\dd t=-9,8t+C_1.
+\]
+Do $s'(0)=v_0$ nên $C_1=v_0$, suy ra $s'(t)=-9,8t+v_0$.
+\item Độ cao của viên đạn tại thời điểm $t$ là
+\[
+s(t)=\int s'(t)\dd t=\int(-9,8t+v_0)\dd t=-4,9t^2+v_0t+C_2.
+\]
+Vì $s(0)=s_0$ nên $C_2=s_0$, suy ra $s(t)=-4,9t^2+v_0t+s_0$.
+\item Vậy ta có hàm vận tốc $s'(t)=-9,8t+v_0$ và hàm độ cao $s(t)=-4,9t^2+v_0t+s_0$.
+\end{itemize}
+
+
+\begin{dangbox}DẠNG 2: BÀI TOÁN VỀ CÔNG CỦA LỰC TÁC DỤNG VÀO VẬT\end{dangbox}
+
+\begin{itemize}
+\item Nếu một lực không đổi $F$ tác dụng lên vật $M$ dọc theo một khoảng cách (độ dời) $d$, thì công $W$ sinh ra trong quá trình dịch chuyển bằng tích của lực $F$ và độ dài khoảng cách $d$ mà nó đã tác dụng, ta có công thức
+\[
+W=F\cdot d,
+\]
+trong đó, lực $F$ được hiểu là tác dụng dọc theo hướng (phương) chuyển động.
+\item Định nghĩa trên luôn đúng khi lực $F$ không đổi. Tuy nhiên, nhiều trường hợp lực $F$ biến thiên trong suốt quá trình thực hiện công. Trong các tình huống như vậy, người ta thường chia quá trình này thành nhiều phần nhỏ và tính công toàn phần nhờ lấy tổng các công tương ứng với các phần được chia (được tính nhờ phép tính tích phân).
+\item Giả sử $f(x)$ là lực tác dụng lên vật tại vị trí $x$, đường đi của lực tác dụng (quỹ đạo của vật được tác dụng lực) tương ứng với trục tọa độ $Ox$. Khi đó, công toàn phần sinh ra trong cả quá trình chuyển động của vật từ vị trí $x=a$ đến vị trí $x=b$ là:
+\[
+W=\int_a^b f(x)\dd x.
+\]
+\end{itemize}
+
+\textbf{Bài toán 1: Một lực $40N$ cần thiết để kéo căng một chiếc lò xo có độ dài tự nhiên từ $10cm$ đến $15cm$. Hãy tính công sinh ra khi kéo lò xo từ độ dài từ $15cm$ đến $18cm$.}\par\medskip
+
+\begin{analysisbox}
+\analysis
+\begin{itemize}
+\item Khi một lò xo bị biến dạng (bị nén hoặc kéo giãn) thì lò xo sẽ sinh ra một lực gọi là lực đàn hồi, lực đàn hồi này chống lại sự biến dạng, giúp lò xo trở về lại hình dạng tự nhiên ban đầu.
+\item Theo định luật Hooke: “Khi một lò xo bị biến dạng (nén hoặc giãn) với một độ dài $x$ ($x>0$) so với độ dài tự nhiên của lò xo thì lò xo sinh ra một lực đàn hồi có độ lớn bằng $f(x)=kx$, trong đó $k$ là hệ số đàn hồi (hoặc độ cứng) của lò xo.”
+\item Dùng giả thiết để suy ra hàm số $f(x)=kx$. Khi đó, công sinh ra khi kéo căng lò xo từ $15cm$ đến $18cm$ được tính theo công thức
+\[
+W=\int_{0,05}^{0,08}f(x)\dd x.
+\]
+\end{itemize}
+\end{analysisbox}
+
+\solution
+\begin{itemize}
+\item Ban đầu, lò xo có độ dài tự nhiên $10cm$. Dùng một lực $40N$ kéo giãn lò xo có độ dài $15cm$ thì lò xo bị kéo dãn một đoạn có độ dài $5cm=0,05m$. Vậy ta có
+$f(0,05)=40\Leftrightarrow0,05k=40\Leftrightarrow k=800$. Suy ra $f(x)=800x$.
+\item Vậy công sinh ra khi kéo căng lò xo từ $15cm$ đến $18cm$ là
+\[
+W=\int_{0,05}^{0,08}800x\dd x=800\cdot\left.\left(\frac{x^2}{2}\right)\right|_{0,05}^{0,08}=1,56J.
+\]
+\end{itemize}
+
+\textbf{Bài toán 2: Người thợ hồ nâng một xô nước bị rỉ lên cao $20m$ với tốc độ cố định. Cho trọng lượng của xô là $3N$, trọng lượng ban đầu của nước là $2N$. Biết rằng xô nước bị rỉ nên lượng nước trong xô sẽ chảy ra với tốc độ không đổi trong thời gian nâng xô nước lên. Người ta ước tính rằng lượng nước trong xô sẽ thay đổi theo đồ thị là hình bên. Hỏi người thợ hồ đã dùng một công là bao nhiêu để nâng xô nước lên cao $20m$, với giả sử rằng bỏ qua trọng lượng sợi dây?}\par\medskip
+
+\begin{analysisbox}
+\analysis
+\begin{itemize}
+\item Trong suốt thời gian đưa xô nước lên độ cao $20m$ thì trọng lượng của xô không đổi, nhưng nước bị chảy ra liên tục nên trọng lượng nước thay đổi. Vì vậy để tính được công đưa xô nước lên cao thì ta tách làm 2 loại công: Một là công đưa xô lên, hai là công đưa nước lên.
+\item Vì trọng lượng xô không đổi trong suốt thời gian đưa lên cao nên công cũng không đổi và tính bằng công thức $W_{\text{xô}}=P_{\text{xô}}\cdot h=3\cdot20=60(Nm)$.
+\item Vì lượng nước giảm liên tục nên trọng lượng của nước là một hàm số $f(x)$ giảm liên tục phụ thuộc vào quãng đường $x$ mà xô đi được.
+\item Theo giả thiết đồ thị biểu diễn trọng lượng xô nước là đường thẳng có dạng $f(x)=ax+b$, dựa vào đồ thị ta tìm được phương trình $f(x)=ax+b$.
+\item Khi đó, công để đưa lượng nước lên cao $20m$ tính theo công thức
+\[
+\int_0^{20}f(x)\dd x.
+\]
+\item Vậy công cần thực hiện để đưa cả xô và nước lên cao $20m$ là $W=60+\int_0^{20}f(x)\dd x$.
+\end{itemize}
+\end{analysisbox}
+
+\solution
+\begin{itemize}
+\item Vì trọng lượng của xô là $3N$ không thay đổi nên công để đưa xô lên cao $20m$ là
+$W_{\text{xô}}=P_{\text{xô}}\cdot h=3\cdot20=60(Nm)$.
+\item Trọng lượng của nước thay đổi tùy thuộc vào độ cao của xô so với mặt đất. Gọi $x$ là độ cao của xô so với mặt đất, khi đó $f(x)=ax+b$ là trọng lượng của nước tương ứng với độ cao $x$.
+\item Đồ thị hàm số $f(x)=ax+b$ đi qua 2 điểm $A(0;2)$ và $B(20;0)$ nên
+\[
+\begin{cases}a\cdot0+b=2\\a\cdot20+b=0\end{cases}
+\Longleftrightarrow
+\begin{cases}b=2\\a=-\frac1{10}\end{cases}
+\Rightarrow f(x)=-\frac1{10}x+2.
+\]
+\item Công sinh ra khi đưa nước từ mặt đất lên cao $20$ là:
+\[
+\int_0^{20}f(x)\dd x=\int_0^{20}\left(-\frac1{10}x+2\right)\dd x
+=\left.\left(-\frac1{20}x^2+2x\right)\right|_0^{20}=20(Nm).
+\]
+\item Vậy công toàn bộ để đưa cả xô và nước lên cao $20m$ là $60+20=80(Nm)$.
+\end{itemize}
+
+\begin{dangbox}DẠNG 3: BÀI TOÁN VỀ TĂNG TRƯỞNG, PHÁT TRIỂN\end{dangbox}
+
+\begin{itemize}
+\item Cho hàm số $f(x)$ biểu diễn cho sự tăng (hay giảm) số lượng của một đối tượng nào đó
+(số người, vi khuẩn, vi trùng, lượng nước chảy,...).
+\item Giá trị $f(x)$ là số lượng của đối tượng đó tại thời điểm $x$.
+\item Đạo hàm $f'(x)$ chính là tốc độ tăng (hay giảm) của đối tượng đó tại thời điểm $x$.
+\item Số lượng tăng thêm (hoặc giảm đi) của đối tượng trong khoảng $x\in[a;b]$ là:
+\[
+\int_a^b f'(x)\dd x.
+\]
+\end{itemize}
+
+\textbf{Bài toán 1: Một nghiên cứu chỉ ra rằng sau $x$ tháng kể từ bây giờ, dân số của thành phố A sẽ tăng với tốc độ $v(x)=10+2\sqrt{2x+1}$ (người/tháng). Dân số của thành phố sẽ tăng thêm bao nhiêu trong 4 tháng tới.}\par\medskip
+
+\begin{analysisbox}
+\analysis
+\begin{itemize}
+\item Giả thiết cho $v(x)=10+2\sqrt{2x+1}$ hàm biểu thị cho tốc độ tăng dân số trong tháng thứ $x$. Vậy nguyên hàm của $v(x)$ chính là hàm số $f(x)$ biểu thị cho dân số của thành phố sau $x$ tháng kể từ bây giờ.
+\item Đề bài yêu cầu tính số dân tăng thêm của thành phố trong vòng 4 tháng tới. Theo lý thuyết đã nêu thì số dân tăng thêm đó được tính theo công thức
+\[
+\int_0^4v(t)\dd t=f(4)-f(0).
+\]
+\item Chú ý rằng ta có thể tính bằng 2 cách. Cách 1 là tìm nguyên hàm $f(x)$, sau đó tính hiệu số $f(4)-f(0)$. Cách 2 là tính trực tiếp tích phân $\displaystyle\int_0^4v(t)\dd t$.
+\end{itemize}
+\end{analysisbox}
+
+\solution
+\begin{itemize}
+\item Gọi $f(x)$ là dân số của thành phố sau $x$ tháng kể từ bây giờ.
+\item Tốc độ thay đổi của dân số là $v(x)=10+2\sqrt{2x+1}$.
+\item Suy ra $f(x)=\int\left(10+2\sqrt{2x+1}\right)\dd x=10x+2\int\sqrt{2x+1}\dd x$.
+\item Mà $\int\sqrt{2x+1}\dd x=\frac12\int(2x+1)^{\frac{1}{2}}\dd(2x+1)=\frac13(2x+1)^{\frac{3}{2}}+C$.
+\item Do đó $f(x)=10x+\frac23(2x+1)^{\frac{3}{2}}+C$.
+\item Số dân trong 4 tháng tới là
+\[
+f(4)-f(0)=10\cdot4+\frac23(2\cdot4+1)^{\frac{3}{2}}+C-\left(0+\frac23+C\right)\approx57\text{ người}.
+\]
+\end{itemize}
+
+\begin{commentbox}\commenthead
+Một là, nếu gọi $f(x)$ là số dân thay đổi theo thời gian $x$ thì đạo hàm $f'(x)$ chính là tốc độ
+thay đổi (tăng hoặc giảm) của số dân.
+
+Hai là, nguyên hàm của hàm tốc độ tăng giảm $f'(x)$ chính là hàm $f(x)$ biểu thị cho dân số.
+
+Ba là, bài toán có thể giải theo cách thứ 2. Vì $v(x)$ là tốc độ tăng dân số từ bây giờ ($x=0$) đến tháng thứ 4 ($t=4$) nên số dân tăng thêm (hoặc giảm đi) trong thời gian đó là
+\[
+\int_0^4v(x)\dd x
+=\int_0^4\left(10+2\sqrt{2x+1}\right)\dd x
+=\left.\left(10x+\frac{2}{3}(2x+1)^{\frac{3}{2}}\right)\right|_0^4\approx57\text{ người}.
+\]
+
+\end{commentbox}\textbf{Bài toán 2: Tốc độ phát triển của số lượng vi khuẩn trong hồ bơi được mô hình bởi hàm số \[ B'(t)=\frac{1000}{(1+0,3t)^2},\qquad t\ge0, \] trong đó $B(t)$ là số lượng vi khuẩn trên mỗi ml nước tại ngày thứ $t$. Số lượng vi khuẩn ban đầu là 500 con trên mỗi ml nước. Biết rằng mức độ an toàn cho người sử dụng hồ bơi là số vi khuẩn phải dưới 3000 con trên mỗi ml nước. Hỏi sau bao nhiêu ngày thì người ta phải xử lí và thay nước mới cho hồ bơi.}\par\medskip
+\begin{analysisbox}
+\analysis
+\begin{itemize}
+\item Để biết được sau bao nhiêu ngày phải thay nước mới cho hồ bơi thì ta cần xác định sau bao nhiêu ngày thì số lượng vi khuẩn phát triển đến 3000 con trên mỗi ml nước. Như vậy ta phải xác định hàm số $B(t)$ biểu thị cho số lượng phát triển của vi khuẩn tại ngày thứ $t$.
+\item Ta biết rằng tốc độ phát triển của số lượng vi khuẩn trong hồ bơi được mô hình bởi hàm số $B'(t)=\dfrac{1000}{(1+0,3t)^2}$. Suy ra nguyên hàm của $B'(t)$ là hàm số $B(t)$ biểu thị cho số lượng của vi khuẩn tại ngày thứ $t$.
+\item Khi đó, kết hợp với điều kiện số lượng vi khuẩn lúc đầu $B(0)=500$ con, ta tìm được một mô hình $B(t)$ biểu thị cho số lượng vi khuẩn tại ngày thứ $t$.
+\item Từ đây ta có thể tính số lượng vi khuẩn tại thời điểm tùy ý và xác định được người bơi có an toàn hay không? Có nên thay nước cho hồ bơi hay không?
+\end{itemize}
+\end{analysisbox}
+
+\solution
+\begin{itemize}
+\item Số lượng của vi khuẩn tại ngày thứ $t$ được mô hình bởi hàm số $B(t)$ là nguyên hàm của $B'(t)$.
+\[
+B(t)=\int\frac{1000}{(1+0,3t)^2}\dd t
+=1000\int(1+0,3t)^{-2}\dd t
+=-\frac{1000}{0,3(1+0,3t)}+C.
+\]
+\item Số lượng vi khuẩn lúc ban đầu là 500 con trên mỗi ml nước nên
+\[
+B(0)=500\Leftrightarrow-\frac{1000}{0,3(1+0,3\cdot0)}+C=500\Leftrightarrow C=\frac{11500}{3}.
+\]
+\item Suy ra hàm số biểu thị cho số lượng vi khuẩn tại ngày thứ $t$ là
+\[
+B(t)=-\frac{1000}{0,3(1+0,3t)}+\frac{11500}{3}.
+\]
+\item Số lượng vi khuẩn dưới 3000 con trên mỗi ml nước thì người bơi vẫn an toàn; và người
+bơi không an toàn khi
+\[
+B(t)\ge3000\Leftrightarrow-\frac{1000}{0,3(1+0,3t)}+\frac{11500}{3}\ge3000
+\]
+\[
+\Leftrightarrow-\frac{1000}{0,3(1+0,3t)}\ge-\frac{2500}{3}
+\Leftrightarrow1+0,3t\ge4\Leftrightarrow t\ge10.
+\]
+\item Vậy vào ngày thứ 10 thì số lượng vi khuẩn sẽ là 3000 con và hồ bơi không còn an toàn, cần phải thay nước mới.
+\item Như vậy số lượng vi khuẩn đã vượt qua 2000 con/ml nước.
+\end{itemize}
+
+\textbf{Bài toán 3: Người ta thay nước mới cho 1 bể bơi có dạng hình hộp chữ nhật có độ sâu là $h_1=280cm$. Giả sử $h(t)$ là chiều cao (tính bằng cm) của mực nước bơm được tại thời điểm $t$ giây, biết rằng tốc độ tăng của chiều cao mực nước tại giây thứ $t$ là $h'(t)=\frac1{500}\sqrt[3]{t+3}$ và lúc đầu hồ bơi không có nước. Hỏi sau bao lâu thì nước bơm được $\frac34$ độ sâu của hồ bơi?}\par\medskip
+\begin{analysisbox}
+\analysis
+\begin{itemize}
+\item Tốc độ tăng của chiều cao mực nước tại giây thứ $t$ là $h'(t)=\frac1{500}\sqrt[3]{t+3}$. Suy ra nguyên hàm của $h'(t)$ chính là chiều cao của mực nước đã bơm được tại thời điểm $t$. Ta sẽ tính công thức nguyên hàm $h(t)$.
+\item Kết hợp với điều kiện lúc ban đầu hồ không chứa nước, tức là độ cao của mực nước trong hồ tại thời điểm $t=0$ là $h(0)=0$. Ta suy ra mô hình hàm số $h(t)$ biểu thị cho chiều cao của mực nước bơm được tại thời điểm $t$.
+\item Từ đây ta có thể xác định được thời gian để bơm được lượng nước bằng $\frac34$ độ sâu của hồ bơi.
+\end{itemize}
+\end{analysisbox}
+
+\solution
+\begin{itemize}
+\item Ta biết rằng chiều cao $h(t)$ của mực nước bơm được chính là nguyên hàm của tốc độ tăng $h'(t)$ của chiều cao mực nước.
+\[
+h(t)=\int h'(t)\dd t=\int\frac1{500}(t+3)^{\frac{1}{3}}\dd t
+=\frac3{2000}(t+3)^{\frac{4}{3}}+C.
+\]
+\item Lúc ban đầu (tại $t=0$) hồ bơi không chứa nước, nghĩa là
+\[
+h(0)=0\Leftrightarrow\frac3{2000}3^{\frac{4}{3}}+C=0
+\Leftrightarrow C=-\frac3{2000}3^{\frac{4}{3}}.
+\]
+\item Suy ra mực nước bơm được tại thời điểm $t$ giây là
+\[
+h(t)=\frac3{2000}(t+3)^{\frac{4}{3}}-\frac3{2000}3^{\frac{4}{3}}.
+\]
+\item Theo giả thiết, lượng nước bơm được bằng $\frac34$ độ sâu của hồ bơi nên ta có $h(t)=\frac34h_1\Leftrightarrow h(t)=\frac34\cdot280$, từ đó suy ra $t\approx7234s$.
+\item Vậy sau khoảng thời gian $2$ giờ $34$ giây thì bơm được $\frac34$ độ sâu của hồ bơi.
+\end{itemize}
+
+\textbf{Bài toán 4: Trọng lượng của một bào thai người nặng khoảng $0,04$ ounce ($1ounce=28,3495$ gram) sau 8 tuần tuổi. Trong suốt 35 tuần tiếp theo, trọng lượng của bào thai này được dự đoán tăng với tốc độ \[ B'(t)=\frac{2436e^{-0,193t}}{(1+784e^{-0,193t})^2},\qquad8\le t\le43, \] với $B(t)$ là cân nặng tính bằng ounce và $t$ là thời gian tính bằng tuần. Hãy tính trọng lượng của bào thai sau 25 tuần tuổi.}\par\medskip
+\begin{analysisbox}
+\analysis
+\begin{itemize}
+\item Tốc độ tăng của trọng lượng bào thai được mô hình bởi hàm số
+$B'(t)=\dfrac{2436e^{-0,193t}}{(1+784e^{-0,193t})^2}$, $8\le t\le43$. Nguyên hàm của $B'(t)$ chính là hàm số $B(t)$ biểu thị cho cân nặng của bào thai tại thời điểm $t$ (tính bằng tuần).
+\item Kết hợp với điều kiện trọng lượng ban đầu của bào thai $B(8)=0,04$, ta sẽ tìm ra hàm số $B(t)$. Từ đây ta có thể dự đoán được trọng lượng của bào thai trong thời gian sắp tới.
+\end{itemize}
+\end{analysisbox}
+
+\solution
+\begin{itemize}
+\item Theo giả thiết thì trọng lượng của bào thai này được dự đoán tăng với tốc độ là hàm số
+$B'(t)=\dfrac{2436e^{-0,193t}}{(1+784e^{-0,193t})^2}$, $8\le t\le43$ nên $B(t)$ chính là nguyên hàm của $B'(t)$.
+\[
+B(t)=\int\frac{2436e^{-0,193t}}{(1+784e^{-0,193t})^2}\dd t.
+\]
+\item Đặt $u=1+784e^{-0,193t}$, ta có
+\[
+B\approx-16,1\int\frac{du}{u^2}=\frac{16,1}{u}+C
+=\frac{16,1}{1+784e^{-0,193t}}+C.
+\]
+\item Sau 8 tuần tuổi thì bào thai cân nặng khoảng 0,04 ounce nên
+\[
+B(8)=0,04\Rightarrow\frac{16,1}{1+784e^{-0,193\cdot8}}+C=0,04
+\Rightarrow C=-0,0556.
+\]
+\item Do đó ta có hàm số cân nặng của bào thai là
+\[
+B(t)\approx\frac{16,1}{1+784e^{-0,193t}}-0,0556,\qquad8\le t\le43.
+\]
+\item Cân nặng của bào thai sau 25 tuần tuổi là:
+\[
+B(25)\approx\frac{16,1}{1+784e^{-0,193\cdot25}}-0,0556=2,152\text{ ounce}.
+\]
+\end{itemize}
+
+\begin{dangbox}DẠNG 4: BÀI TOÁN VỀ TÍNH DIỆN TÍCH, THỂ TÍCH\end{dangbox}
+
+\textbf{Bài toán 1: Một mảnh vườn hình thang cong OACB vuông tại O và B, có dạng như hình vẽ, trong đó độ dài các cạnh OA = 15m, OB = 20m, BC = 25m, và đường cong AC được mô tả bởi một hàm số mũ có dạng $f(x)=N.e^{mx}$ trong đó N và m là các hằng số. Hỏi mảnh vườn này có diện tích bao nhiêu?}\par\medskip
+\begin{analysisbox}
+\analysis
+\begin{itemize}
+\item Điều đầu tiên dễ nhận thấy là chúng ta không thể dùng công thức diện tích hình thang thông thường để tính diện tích cho hình thang cong OACB. Để tính được diện tích này ta cần dùng ý nghĩa hình học của tích phân.
+\item Ta chọn hệ trục tọa độ Oxy như hình vẽ, khi đó hình thang cong OACB được đơn giản hóa trong mặt phẳng tọa độ Oxy.
+\item Bước tiếp theo ta cần tìm hàm số mũ $f(x)=N.e^{mx}$ biểu thị cho đường cong AC, để ý rằng đường cong AC đi qua điểm A(0;15) và C(20;25).
+\item Diện tích của hình thang cong được tính theo công thức
+\[
+S=\int_0^{20}f(x)\dd x.
+\]
+\end{itemize}
+\end{analysisbox}
+
+\solution
+\begin{itemize}
+\item Không mất tính tổng quát, chọn hệ trục tọa độ Oxy như hình vẽ sao cho các đoạn OA, OB lần lượt nằm trên các trục Oy, Ox.
+\item Để tính được diện tích mảnh vườn, ta cần tìm hàm số $f(x)=N.e^{mx}$.
+\item Theo hình vẽ ta có
+\[
+\begin{cases}f(0)=15\\f(20)=25\end{cases}
+\Longleftrightarrow
+\begin{cases}N=15\\15e^{20m}=25\end{cases}
+\Longrightarrow
+m=\frac1{20}\ln\frac53,
+\]
+Do đó $f(x)=15e^{\frac{x}{20}\ln(5/3)}$.
+\item Áp dụng công thức tính diện tích hình phẳng ta có diện tích mảnh vườn là
+\[
+S=\int_0^{20}15e^{\frac{x}{20}\ln(5/3)}\dd x
+=\left.\left(\frac{20 \cdot 15}{\ln(5/3)}e^{\frac{x}{20}\ln(5/3)}\right)\right|_0^{20}
+\approx391,52m^2.
+\]
+\end{itemize}
+
+\begin{commentbox}\commenthead
+Một là, để tính diện tích của các hình phẳng phức tạp (không phải là tam giác, tứ giác, hình tròn,...) ta cần dùng đến tích phân để tính diện tích.
+
+Hai là, đối với mỗi hình phẳng ta cần chọn hệ trục tọa độ Oxy sao cho hình phẳng đó được đơn giản hóa mà không mất tính tổng quát, kết quả diện tích không sai lệch.
+
+\end{commentbox}\textbf{Bài toán 2: Vòm cửa lớn của trường Đại Học Sư Phạm Tp.Hồ Chí Minh có dạng hình Parabol. Người ta dự định lắp cửa kính cho vòm cửa này. Hãy tính diện tích mặt kính cần lắp vào biết rằng vòm cửa cao $8m$ và rộng $8m$.}\par\medskip
+\begin{analysisbox}
+\analysis
+\begin{itemize}
+\item Hình phẳng cần tính diện tích được giới hạn bởi 1 đường thẳng BC và 1 đường cong Parabol, cho nên ta không thể dùng các công thức tính diện tích của những hình đơn giản quen thuộc như: hình chữ nhật, hình tròn, tam giác,... Ta cần dùng tích phân để tính diện tích hình phẳng này.
+\item Như vậy, việc đầu tiên ta cần đưa đường cong Parabol của cánh cửa vào hệ trục Oxy và mô hình nó thành hàm số bậc hai $y=ax^2+bx+c$.
+\item Dựa vào độ cao $8m$ và chiều rộng $8m$ của cánh cửa ta dễ dàng xác định các hệ số $a,b,c$ trong biểu thức hàm số.
+\item Ứng dụng ý nghĩa hình học của tích phân ta có công thức tính diện tích của cánh cửa là
+\[
+S=\int_{-4}^{4}(ax^2+bx+c)\dd x.
+\]
+\item Lưu ý rằng cánh cửa rộng $8m$ và ta cho đường cong Parabol đối xứng qua trục tung Oy nên dễ suy ra các cận $x=-4$ và $x=4$.
+\end{itemize}
+\end{analysisbox}
+
+\solution
+\begin{itemize}
+\item Không mất tổng quát, ta xét dạng hình parabol vòm cửa lớn như hình vẽ sau.
+\item Đồng thời xét $(P):y=ax^2+bx+c$.
+\item Ta có
+\[
+\begin{cases}
+A(0;8)\in(P)\\
+B(4;0)\in(P)\\
+C(-4;0)\in(P)
+\end{cases}
+\Longrightarrow
+\begin{cases}
+c=8\\16a+4b+c=0\\16a-4b+c=0
+\end{cases}
+\Longrightarrow a=-\frac12,\ b=0,\ c=8.
+\]
+Do đó $(P):y=-\frac12x^2+8$.
+\item Do đó $S_H=2\int_0^4\left(-\frac12x^2+8\right)\dd x=\left[16x-\frac{x^3}{3}\right]_0^4=\frac{128}{3}m^2$.
+\end{itemize}
+
+\textbf{Bài toán 3: Một thùng rượu có bán kính ở trên là $30cm$ và ở giữa là $40cm$. Chiều cao thùng rượu là $1m$. Hỏi thùng rượu đó chứa được tối đa bao nhiêu lít rượu (kết quả lấy 2 chữ số thập phân)? Cho rằng cạnh bên hông của thùng rượu là hình parabol.}\par\medskip
+\begin{center}\makebox[0.95\linewidth][s]{\textbf{A.} $321,05$ lít.\hfill\textbf{B.} $540$ lít.\hfill\textbf{C.} $201,32$ lít.\hfill\textbf{D.} $425,16$ lít.}\end{center}
+\begin{analysisbox}
+\analysis
+\begin{itemize}
+\item Thùng rượu có dạng là một khối tròn xoay có đường sinh là một đường cong có dạng Parabol $(P):y=ax^2+bx+c$ ($a\ne0$). Vì vậy để tính thể tích thùng rượu ta cần áp dụng tích phân để tính thể tích khối tròn xoay. Chú ý rằng khi mô hình đường cong Parabol ta để chiều cao của thùng rượu trải theo chiều của trục hoành.
+\item Bước đầu ta cần xây dựng hàm số $(P):y=ax^2+bx+c$ ($a\ne0$) với điều kiện đi qua các đỉnh $N(-50;30)$, $A(0;40)$, $M(50;30)$ như hình vẽ.
+\item Dựa vào chiều cao $1m$ của thùng rượu ta tìm được các cận của tích phân. Khi đó lập được công thức tính được thể tích thùng rượu.
+\end{itemize}
+\end{analysisbox}
+
+\solution
+\begin{itemize}
+\item Ta sẽ để thùng rượu nằm ngang để thuận lợi cho việc tính toán.
+\item Ta cần tìm phương trình parabola $(P):y=ax^2+bx+c$ ($a\ne0$) đi qua đỉnh $M,N,A$.
+\[
+\begin{cases}
+M(50;30)\in(P)\\
+A(0;40)\in(P)\\
+N(-50;30)\in(P)
+\end{cases}
+\Longrightarrow
+\begin{cases}
+2500a+50b+c=30\\c=40\\2500a-50b+c=30
+\end{cases}
+\Longrightarrow a=-\frac1{250},\ b=0,\ c=40.
+\]
+Do đó $(P):y=-\frac{x^2}{250}+40$.
+\item Tới đây ta áp dụng công thức tính thể tích $V$ khi quay hình phẳng giới hạn bởi (parabol), $x=50$, $x=-50$, $y=0$ xung quanh trục hoành $Ox$:
+\[
+\begin{aligned}
+V_{\text{rượu}}&=\pi\int_{-50}^{50}y^2\dd x
+=\pi\int_{-50}^{50}\left(-\frac{x^2}{250}+40\right)^2\dd x\\
+&=\pi\int_{-50}^{50}\left(\frac{x^4}{62500}-\frac{80x^2}{250}+40^2\right)\dd x\\
+&\approx425162,20\,cm^3\approx425,16\,(l).
+\end{aligned}
+\]
+\item Vậy thùng rượu chứa được tối đa $425,16$ lít.
+\end{itemize}
+
+\begin{dangbox}DẠNG 5: BÀI TOÁN VỀ KINH TẾ\end{dangbox}
+
+\textbf{Bài toán 1: Sau $t$ giờ làm việc một người công nhân có thể sản xuất với tốc độ là $q(t)=100+e^{-0,5t}$ đơn vị sản phẩm trong 1 giờ. Giả sử người đó bắt đầu làm việc từ lúc 8 giờ sáng. Hỏi người đó sẽ sản xuất được bao nhiêu đơn vị sản phẩm giữa 9 giờ sáng và 11 giờ trưa?}\par\medskip
+\begin{analysisbox}
+\analysis
+\begin{itemize}
+\item Đề bài cho hàm $q(t)=100+e^{-0,5t}$ mô tả tốc độ sản xuất sản phẩm của một người công nhân. Suy ra nguyên hàm của $q(t)$ là hàm số $S(t)$ mô tả số lượng sản phẩm làm ra của người công nhân đó trong $t$ giờ.
+\item Lúc 8 giờ người công nhân đó bắt đầu làm việc (ta xem như $t=0$). Như vậy thời gian từ 9 giờ sáng đến 11 giờ ứng với $t$ từ 1 đến 4.
+\item Số đơn vị sản phẩm người công nhân đó làm được từ 9 giờ đến 11 giờ là:
+\[
+\int_1^4q(t)\dd t.
+\]
+\end{itemize}
+\end{analysisbox}
+
+\solution
+\begin{itemize}
+\item Gọi $S(t)$ là số đơn vị sản phẩm mà công nhân sản xuất được sau $t$ giờ tính từ lúc 8 giờ sáng. Ta có $S'(t)=q(t)=100+e^{-0,5t}$.
+\item Số đơn vị sản phẩm người đó sản xuất được từ 9 giờ sáng ($t=1$) đến 11 giờ trưa ($t=4$) là
+\[
+\int_1^4q(t)\dd t
+=\int_1^4(100+e^{-0,5t})\dd t
+=\left.\left(100t-2e^{-0{,}5t}\right)\right|_1^4
+=200,76\text{ đơn vị sản phẩm}.
+\]
+\end{itemize}
+
+\textbf{Bài toán 2: Qua điều tra các nhà phân tích kinh tế đã nhận định rằng tốc độ tăng trưởng kinh tế (GDP) của một quốc gia sau $t$ năm tính từ đầu năm 2004 là $30+\frac12\sqrt{5+t}$ tỷ USD/năm. Biết rằng GDP của quốc gia đó vào đầu năm 2004 là 100 tỷ USD. Hãy dự đoán GDP của quốc gia đó vào đầu năm 2015.}\par\medskip
+\begin{analysisbox}
+\analysis
+\begin{itemize}
+\item Tốc độ tăng trưởng kinh tế (GDP) của quốc gia đó sau $t$ năm tính từ năm 2004 được mô tả bởi hàm số $q(t)=30+\frac12\sqrt{5+t}$. Suy ra nguyên hàm của $q(t)$ là hàm số $S(t)$ biểu thị GDP của quốc gia đó sau $t$ năm. Ta có $S(t)=\int q(t)\dd t$.
+\item Năm 2004 xem như $t=0$, năm 2015 ứng với $t=11$. Giá trị tăng thêm GDP của quốc gia đó từ năm 2004 đến 2015 được tính theo công thức
+\[
+\int_0^{11}q(t)\dd t=S(11)-S(0).
+\]
+\item Vậy tổng giá trị GDP của quốc gia đó tính đến năm 2015 bằng giá trị GDP năm 2004 cộng thêm GDP từ năm 2004 đến đầu năm 2015, tính theo công thức
+\[
+\int_0^{11}q(t)\dd t+100.
+\]
+\end{itemize}
+\end{analysisbox}
+
+\solution
+\begin{itemize}
+\item Nguyên hàm của $q(t)=30+\frac12\sqrt{5+t}$ là hàm số $S(t)$ mô tả GDP của quốc gia sau $t$ năm (được tính từ năm 2004).
+\item GDP tăng thêm tính từ năm 2004 ($t=0$) đến đầu năm 2015 ($t=11$) là
+\[
+\int_0^{11}q(t)\dd t
+=\int_0^{11}\left(30+\frac12\sqrt{5+t}\right)\dd t
+=\left.\left(30t+\frac{1}{3}(5+t)^{\frac{3}{2}}\right)\right|_0^{11}
+=347,6\text{ tỷ USD}.
+\]
+\item Như vậy, tổng giá trị GDP tính đến đầu năm 2015 bằng
+\[
+347,6+100=447,6\text{ tỷ USD}.
+\]
+\end{itemize}
+
+\begin{commentbox}\commenthead
+Một là, ta cần hiểu đúng ý nghĩa của hàm số $S(t)=\int q(t)\dd t$, đó là sản lượng GDP của quốc gia làm ra tính đến năm thứ $t$, chứ không phải là sản lượng GDP làm được trong năm thứ $t$, hai điều đó hoàn toàn khác nhau.
+
+Hai là, nếu hiểu được $S(t)$ là sản lượng GDP của quốc gia tính đến năm thứ $t$ thì giá trị GDP tính đến đầu năm 2015 sẽ bằng GDP tính đến năm 2004 cộng với lượng GDP tăng thêm từ năm 2004 đến đầu năm 2015.
+
+\end{commentbox}\textbf{Bài toán 3: Một công ty sản xuất sản phẩm A, giả sử chi phí cận biên khi $x$ sản phẩm được sản xuất là $q(x)=x^3-6x^2+40$ USD/sản phẩm. Hỏi tổng chi phí sản xuất sẽ tăng lên bao nhiêu nếu sản phẩm sản xuất ra tăng từ 3 sản phẩm đến 7 sản phẩm?}\par\medskip
+\begin{analysisbox}
+\analysis
+\begin{itemize}
+\item Chi phí cận biên khi $x$ sản phẩm được sản xuất là $q(x)=x^3-6x^2+40$ USD/sản phẩm. Nguyên hàm của $q(x)=x^3-6x^2+40$ là hàm $S(x)$ mô tả tổng chi phí khi sản xuất $x$ sản phẩm, ta có $S(x)=\int q(x)\dd x$.
+\item Vậy khi tăng sản lượng sản xuất từ 3 đến 7 sản phẩm thì cần thêm chi phí
+\[
+\int_3^7q(x)\dd x.
+\]
+\end{itemize}
+\end{analysisbox}
+
+\solution
+\begin{itemize}
+\item Gọi $S(x)$ là hàm tổng chi phí khi sản xuất $x$ sản phẩm, ta có $S'(x)=q(x)$.
+\item Chi phí tăng thêm khi tăng sản lượng sản xuất từ 3 sản phẩm đến 7 sản phẩm là
+\[
+\int_3^7q(x)\dd x
+=\int_3^7(x^3-6x^2+40)\dd x
+=\left.\left(\frac{x^4}{4}-2x^3+40x\right)\right|_3^7
+=108\text{ USD}.
+\]
+\end{itemize}
+
+\begin{commentbox}\commenthead
+Một là, để giải được bài toán này ta cần hiểu rõ khái niệm chi phí cận biên là mức chi phí thay đổi trong tổng chi phí khi sản xuất tăng thêm 1 đơn vị sản phẩm.
+
+Hai là, nguyên hàm của hàm chi phí cận biên $q(x)$ chính là hàm tổng chi phí $S(x)$ khi sản xuất $x$ đơn vị sản phẩm.
+
+\end{commentbox}\textbf{Bài toán 4: Một công ty có doanh thu cận biên ở mỗi mức sản lượng $x$ được xác định dưới dạng hàm số $f(x)=\dfrac{24}{x+1}$ ($x>0$), với $x$ là số lượng sản phẩm được bán ra. Hỏi tổng doanh thu của công ty khi bán ra 100 sản phẩm là bao nhiêu?}\par\medskip
+\begin{analysisbox}
+\analysis
+\begin{itemize}
+\item Hàm số $f(x)=\dfrac{24}{x+1}$ là doanh thu cận biên khi bán được $x$ sản phẩm. Ta có nguyên hàm của $f(x)$ là hàm tổng doanh thu $F(x)$ khi bán được $x$ sản phẩm. Lập công thức tính $F(x)$.
+\item $F(x)=\int f(x)\dd x$.
+\item Dùng điều kiện ban đầu, tổng doanh thu bằng 0 khi chưa bán được sản phẩm ta suy ra hàm $F(x)$.
+\item Khi đó dễ dàng tính được $F(100)$.
+\end{itemize}
+\end{analysisbox}
+
+\solution
+\begin{itemize}
+\item Hàm tổng doanh thu $F(x)$ là nguyên hàm của $f(x)$ nên ta có
+\[
+F(x)=\int f(x)\dd x=\int\frac{24}{x+1}\dd x=24\ln|x+1|+C.
+\]
+\item Hiển nhiên rằng tổng doanh thu sẽ bằng 0 khi số lượng sản phẩm bán ra là bằng 0
+\[
+F(0)=0\Leftrightarrow24\ln|0+1|+C=0\Leftrightarrow C=0\Rightarrow F(x)=24\ln|x+1|.
+\]
+\item Vậy khi 100 sản phẩm được bán ra thì doanh thu sẽ là
+\[
+F(100)=24\ln|x+1|=110,76\text{ đơn vị tiền tệ}.
+\]
+\end{itemize}
+
+Hàm doanh thu cận biên $f(x)=58-x$.
+
+\end{document}
